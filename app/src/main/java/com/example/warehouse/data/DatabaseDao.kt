@@ -4,7 +4,6 @@ import com.example.warehouse.model.MaterialItem
 import com.example.warehouse.model.WarehouseItem
 import com.example.warehouse.model.exceptions.MaterialTransactionFailException
 import com.example.warehouse.model.exceptions.NotEnoughPlaceInWarehouseException
-import com.example.warehouse.model.types.MaterialItemTypes
 import kotlin.random.Random
 
 class DatabaseDao {
@@ -47,10 +46,10 @@ class DatabaseDao {
      */
     fun addMaterialToWarehouse(material: MaterialItem, toWarehouse: WarehouseItem): Boolean {
         // TODO fix if statement
-        if (false){
+        if (false) {
             return throw NotEnoughPlaceInWarehouseException()
         }
-        
+
         // return true if material item is added, else return false TODO add "add item" logic
         return true
     }
@@ -78,12 +77,14 @@ class DatabaseDao {
         fromWarehouse: WarehouseItem,
         toWarehouse: WarehouseItem
     ): Boolean {
+        if (toWarehouse.materialItems[materialItem.type]?.currentCount == toWarehouse.materialItems[materialItem.type]?.maxCount) {
+            throw NotEnoughPlaceInWarehouseException()
+        }
 
         // TODO implement transaction (remove from one warehouse and add to another)
-        val random = Random.nextInt(0, 2)
+        val random = Random.nextInt(0, 1)
         return when (random) {
             0 -> throw MaterialTransactionFailException()
-            1 -> throw NotEnoughPlaceInWarehouseException()
             else -> true
         }
     }

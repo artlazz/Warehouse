@@ -15,6 +15,12 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
 
         viewModel.getData()
+
+        viewModel.addData()
+
+        viewModel.removeData()
+
+        viewModel.transitData()
     }
 
 }
